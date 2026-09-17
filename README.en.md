@@ -90,6 +90,8 @@ Each category has one primary place of maintenance; other documents link to it. 
 | Complex internal work | Use a plan when useful; preserve necessary results and handoff information. A plan does not automatically require a major-delivery report. |
 | Major feature or explicit stage delivery | Plan, verify the intended experience, and save a dated report with the tested revision and evidence. |
 
+After a major delivery review and documentation sync, create a local commit containing only that work in an existing Git repository, unless the user explicitly says not to. This adopted rule authorizes the local commit, not a push or release. A commit may record a partial or unsuccessful outcome; it is not proof of acceptance. The no-commit instruction in the onboarding prompt applies to that onboarding task only.
+
 Blocked plans remain active with a recovery condition. Closed-out work may be partially successful or unsuccessful; archiving is not a claim that the goal was met. Independent review is required only when the project or user calls for it, and must not be fabricated.
 
 ## What has been checked
