@@ -4,3 +4,6 @@
 *.local.json
 .DS_Store
 Thumbs.db
+
+# Local publication drafts and outreach research.
+outreach/

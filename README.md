@@ -1,5 +1,7 @@
 # AI Game Dev Framework · AI 游戏开发框架
 
+简体中文 | [English](README.en.md)
+
 A project documentation and agent workflow starter for AI-assisted game development.
 
 让人决定体验与设计边界，让 Agent 自主推进实现，并为每次大功能交付留下可回查的版本、结论和证据。适用于新游戏和已有项目，不要求特定引擎、模型或插件。
@@ -60,12 +62,6 @@ BOOTSTRAP、维护工具和示例属于框架分发内容，不必完整复制�
 | 更新记录 | [CHANGELOG](CHANGELOG.md) |
 
 系统设计和实现共用主文档，设计在前；计划按 active/completed 管理；大功能验收存入 `docs/acceptance/YYYY-MM-DD_功能简介/`。各目录说明内含可直接复制的骨架，不增加另一套模板目录。
-
-## English quick start
-
-Give your agent this repository URL and ask it to follow [BOOTSTRAP.md](BOOTSTRAP.md) to integrate the framework into the current project. Read [the adoption guide](docs/ADOPTION.md) for details. The documentation is Chinese-first; agents may translate it without changing its decision boundaries. Preview the Node command above, then apply only to an empty project. Existing projects require a document mapping and a non-destructive merge by the agent. The installer never modifies existing projects, installs engines, or pushes code.
-
-The workflow separates confirmed design from provisional scaffolding, keeps implementation notes after player-facing design, and archives major deliveries with their tested revision and evidence. This is a documentation/workflow starter, not a game engine or a guarantee of autonomous game quality.
 
 ## 维护与复用
 
