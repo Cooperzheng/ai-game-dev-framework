@@ -2,36 +2,54 @@
 
 [简体中文](README.md) | English
 
-A lightweight project documentation and agent workflow starter for AI-assisted game development.
+**Keep core goals, user requirements, and current game design clear and accessible throughout AI-assisted development.**
 
-Keep confirmed design decisions distinct from provisional scaffolding. Let your agent choose implementation methods within an agreed scope. Keep each major delivery tied to its tested revision, outcome, and evidence.
+The framework provides design context for consistent decisions across tasks, sessions, and agents. The agent chooses how to plan, implement, and verify the work. Plans are entirely optional; there is no mandatory task workflow, acceptance archive, branch policy, or automatic commit requirement.
 
-## What it helps with
+## Experience defines completion
 
-An agent builds a playable framework and fills in missing rules. Later, those placeholders can be mistaken for decisions you approved. As iterations accumulate, test results and design notes can also become difficult to trace to a particular version.
+The requested gameplay, visuals, feel, and explicitly approved reference qualities determine whether the work is complete. Integrating a technology or passing technical tests is not sufficient.
 
-This repository provides a working structure for those problems:
+If the user wants thick, layered clouds like a reference image, installing volumetric clouds is only progress. Compare the actual scene under comparable viewing and lighting conditions, then adjust until the requested effect is met. If a constraint prevents success, explain the gap and tradeoffs instead of silently lowering the goal.
 
-- **Design boundaries:** distinguish explicit constraints, approved design, provisional proposals, and placeholders. Implementation status is tracked separately.
-- **Autonomous execution:** agents continue from planning through implementation, inspection, fixes, and necessary documentation updates within the authorized scope.
-- **Proportionate process:** small fixes need relevant checks, not a full document set. Complex work can use a plan. Major deliveries receive a dated review folder.
-- **Traceable outcomes:** record what was tested, the revision and configuration, what passed, and what remains unverified.
+A reference applies only within the user's approved scope. Approval of cloud texture does not authorize redesigning terrain or the entire color palette. See the [fictional example](docs/references/WORKED-EXAMPLE.md).
 
-It is a documentation and workflow starter. It does not run an AI model, install a game engine, or generate a complete game on its own.
+## Three core locations
 
-## Ask your agent to integrate it
+| Location | Responsibility |
+| --- | --- |
+| [AGENTS.md](AGENTS.md) | Experience goals, confirmation boundaries, and reading/update rules |
+| docs/PROJECT.md | The design brief: intended experience, audience, overall direction, and user requirements |
+| docs/systems/ | Pure system design: features, controls, feedback, values, and gameplay relationships |
 
-Open your target game project in an agent that can read and edit local files, then send:
+PROJECT and System documents distinguish:
 
-> Integrate https://github.com/Cooperzheng/ai-game-dev-framework into this project. Read BOOTSTRAP.md in the repository first and follow its adoption workflow. Preserve existing design decisions and project rules. For an existing project, map and merge documentation rather than overwriting it. Complete the relevant checks and adoption record, then report the actual entry points and missing information. Only integrate the framework for this task; do not commit or push.
+- **Confirmed design:** requirements explicitly approved by the user, with their source and scope. Changes to meaning require alignment.
+- **Current AI proposal:** currently adopted design details that the agent can adjust within confirmed boundaries and the authorized task. Explain significant experience changes and their results.
 
-[BOOTSTRAP.md](BOOTSTRAP.md) gives the agent the complete procedure. The operational documents are currently Chinese-first; your agent can translate them while preserving the rules and decision boundaries.
+Implementation, technical test success, partial approval, and silence do not imply full design approval. Retain confirmed requirements that are not yet implemented and state the gap honestly. Technical implementation details belong in code comments, existing engineering documentation, or optional work notes.
 
-If your agent does not automatically load AGENTS.md, explicitly ask it to read the target project's AGENTS.md or reference it from the agent's supported project instructions. Avoid maintaining separate, conflicting copies. Host permissions and your explicit instructions remain authoritative.
+For example, the user may require active dodging without stamina management. The agent can implement short dodges and longer rolls and tune unconfirmed cooldown values, but cannot introduce stamina on its own.
 
-## Initialize a new project manually
+## Reading and maintenance
 
-Requirements: Git to clone; Node.js 18+ for the optional initializer. There are no third-party Node dependencies. The tests have been run on Windows with Node.js 24.11.1; other platforms and Node.js 18 have not been verified in this release.
+Read PROJECT when context is missing or overall direction matters. Before changing design or player-visible behavior, locate and read the relevant System through its project entry; search existing materials if the entry is missing. Reuse only previously read, still-valid content or complete design context already supplied in the conversation.
+
+Update changed requirements and current gameplay in the relevant design location before delivery, including project links for new Systems. Purely technical changes need no design rewrite, and explicit no-write instructions take precedence. Explain outcomes against the original experience goal with observations and remaining gaps. Keep historical work records when useful, but never let them override current design authority. Plans, reports, and evidence folders are optional rather than generated obligations.
+
+If the host does not automatically load AGENTS, explicitly request it or reference it from its supported instructions. Report document adoption separately from verified host loading; if not exercised, mark loading unverified. Initializer and link tests do not prove agent behavior. The framework cannot guarantee automatic compliance by every agent.
+
+## Adopt into a project
+
+Open the target game project and send:
+
+> Integrate https://github.com/Cooperzheng/ai-game-dev-framework into this project. Read BOOTSTRAP.md first. Focus on experience goals and design consistency: keep project direction and user requirements in PROJECT, pure system design in systems, and distinguish confirmed design from current AI proposals. Preserve valid content, engineering knowledge, and historical records; update references without introducing mandatory Plans or a development workflow. Check the result and report entry points and gaps. Only integrate the framework; do not commit or push.
+
+The [adoption guide](docs/ADOPTION.md) covers new projects, existing projects, and upgrades. Unify core design locations while preserving explicit project agreements. Historical Plans and acceptance records are retained, not rewritten. The framework's own [PROJECT](docs/PROJECT.md) must not become a game's design brief.
+
+## Optional initializer
+
+Git is needed to obtain the repository. The initializer requires Node.js 18+ and has no third-party dependencies.
 
 ```sh
 git clone https://github.com/Cooperzheng/ai-game-dev-framework.git
@@ -39,85 +57,14 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game
 node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 ```
 
-The first Node command previews the files. The second writes only to an absent or empty directory. Target paths are relative to your terminal's current directory; quote paths containing spaces. Keep the framework checkout separate from the target project.
+The first Node command previews changes. Apply accepts only an absent or empty target. Nonempty projects, including one containing only .git, are merged by the agent. Paths are relative to the terminal directory; quote spaces and keep the framework checkout separate.
 
-The initializer creates documentation, not a game project. It does not initialize Git, install engines, create game code, commit, or push. Fill in the project goals, actual engineering entry points, document mapping, and known constraints before declaring adoption complete.
+The tool generates core documents, the System guide, adoption instructions, and a separate framework license. It does not create Plans, acceptance folders, a reference library, game code, engines, Git repositories, or commits. Fill in actual requirements before declaring adoption complete. Manual adoption is available without Node.
 
-Without Node.js, follow the manual copy instructions in [the adoption guide](docs/ADOPTION.md). Preserve the framework's license notice separately; do not replace the target project's license or assume its game assets are MIT-licensed.
+## Maintenance and verification
 
-## Adopt into an existing project
+See [VERSION](VERSION) and [CHANGELOG](CHANGELOG.md). Compare and merge upgrades instead of overwriting design requirements or automatically updating downstream projects.
 
-The initializer refuses to write into a nonempty directory, including a directory containing only `.git`. Your agent performs the merge:
+Framework checks: `node tools/check.mjs`, `node --test tools/adopt.test.mjs`, and a Git diff check. These verify local links and initializer behavior, not gameplay quality, long-term design consistency, or real-project migration.
 
-1. Read the project's existing rules, design documents, current status, and relevant engineering files.
-2. Map framework responsibilities to existing documents. A current design document can fulfill PROJECT; an existing handoff page can fulfill STATUS.
-3. Merge applicable agent rules and update their links to the actual paths. Preserve user work and project-specific constraints.
-4. Add only missing responsibilities. Do not create a second design authority or status page.
-5. Verify the links and record the adopted version, actual entry points, unresolved information, and next step.
-
-An empty game codebase may be ready for documentation-based collaboration while still lacking an engine or runnable build. Report those states separately. See [ADOPTION.md](docs/ADOPTION.md) for the complete procedure and upgrade policy.
-
-## Document structure
-
-```text
-AGENTS.md                    # Agent behavior and reading routes
-docs/
-  PROJECT.md                 # Vision and cross-system design constraints
-  STATUS.md                  # Current state and engineering entry points
-  systems/                   # Design first; implementation notes second
-  plans/
-    active/                  # Active and blocked work
-    completed/               # Completed, closed-out, or cancelled plans
-  acceptance/
-    STANDARD.md              # Review and archiving rules
-    README.md                # Major delivery index
-    YYYY-MM-DD_feature/      # Created for an actual major delivery
-      REPORT.md
-      REVIEW.md              # Optional independent review
-      evidence/
-  references/                # Sources and their intended scope
-```
-
-Each category has one primary place of maintenance; other documents link to it. Copyable System, Plan, and Report outlines live in the relevant directory guides. Omit sections that do not apply.
-
-## Development workflow
-
-**State the branch approach and design boundaries → plan when needed → implement with matching documentation and early checks → review and close out the delivery → integrate and check the result as agreed.**
-
-Before editing, state whether the work uses a development branch or goes directly onto the mainline, and why. Follow existing agreements without asking again; otherwise, multi-step optimizations default to a development branch, while small fixes may use the mainline. Plans and proposals may precede implementation if clearly marked unimplemented. Commits that change documented behavior include the corresponding documentation updates. Merge code, assets, and documents together, resolve semantic conflicts, and check the integrated result. Being merged, enabled in the normal game entry point, and verified are separate facts. See [AGENTS.md](AGENTS.md) for the operative rules.
-
-| Work | Expected process |
-| --- | --- |
-| Small, well-defined fix | Execute and run relevant checks; no mandatory standalone plan or delivery folder. |
-| Complex internal work | Use a plan when useful; preserve necessary results and handoff information. A plan does not automatically require a major-delivery report. |
-| Major feature or explicit stage delivery | Plan, verify the intended experience, and save a dated report with the tested revision and evidence. |
-
-After a major delivery review and documentation sync, create a local commit containing only that work in an existing Git repository, unless the user explicitly says not to. This adopted rule authorizes the local commit, not a push or release. A commit may record a partial or unsuccessful outcome; it is not proof of acceptance. The no-commit instruction in the onboarding prompt applies to that onboarding task only.
-
-Blocked plans remain active with a recovery condition. Closed-out work may be partially successful or unsuccessful; archiving is not a claim that the goal was met. Independent review is required only when the project or user calls for it, and must not be fabricated.
-
-## What has been checked
-
-- Five initializer tests covering preview-only behavior, Unicode/space paths, existing-file preservation and repeat execution, invalid targets, and symlink/junction rejection.
-- Local Markdown link checks.
-- An independent agent's document review and integration into a temporary existing-project fixture, preserving its original design and license without creating duplicate PROJECT/STATUS pages.
-- A fresh GitHub clone of the initial published version passed the initializer tests.
-
-These checks do not demonstrate a complete real-game production cycle or guaranteed compliance by every agent. The [worked example](docs/references/WORKED-EXAMPLE.md) is explicitly fictional. See [current status](docs/STATUS.md) for verification boundaries.
-
-## Updates and contributions
-
-Record the version or commit you adopt. Compare [CHANGELOG.md](CHANGELOG.md) when upgrading, then merge relevant changes; never overwrite project design or historical delivery records with a fresh scaffold.
-
-To check a contribution:
-
-```sh
-node tools/check.mjs
-node --test tools/adopt.test.mjs
-```
-
-Explain the concrete collaboration problem your change addresses. Keep rules conditional and concise; avoid adding mandatory artifacts for every task. The link checker checks ordinary local Markdown targets, not remote URLs, anchors, or semantic consistency.
-
-## License
-
-[MIT](LICENSE). Third-party references and downstream project assets retain their respective licenses.
+[MIT License](LICENSE). Third-party references and downstream game assets retain their respective licenses.

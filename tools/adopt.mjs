@@ -30,22 +30,37 @@ while (true) {
 const relative = path.relative(root, target);
 if (relative === '' || (!relative.startsWith('..' + path.sep) && relative !== '..' && !path.isAbsolute(relative))) fail('Target must be outside the framework checkout.');
 const occupied = fs.existsSync(target) && fs.readdirSync(target).length > 0;
-const files = [
-  'AGENTS.md', 'docs/README.md', 'docs/PROJECT.md', 'docs/ADOPTION.md',
-  'docs/systems/README.md', 'docs/plans/README.md', 'docs/acceptance/README.md',
-  'docs/acceptance/STANDARD.md'
-];
-// Read all sources before any mutation.
+const files = ['AGENTS.md', 'docs/ADOPTION.md', 'docs/systems/README.md'];
+// Read all sources before any mutation. Never copy framework state into a game.
 const payload = new Map(files.map(name => [name, fs.readFileSync(path.join(root, name), 'utf8')]));
 payload.set('docs/FRAMEWORK-LICENSE.txt', fs.readFileSync(path.join(root, 'LICENSE'), 'utf8'));
 const version = fs.readFileSync(path.join(root, 'VERSION'), 'utf8').trim();
-payload.set('docs/references/README.md', '# 参考资料\n\n按需记录参考资料来源、用途、许可和用户认可范围。生成参考与实机证据分别标识。\n');
-payload.set('docs/STATUS.md', `# 当前状态\n\n## 框架接入\n\n- 框架版本：${version}；来源 commit/下载来源：待记录（本地未发布副本须注明）。\n- 文档接入：骨架已生成，尚待核实填写。\n- 文档映射：项目目标 [PROJECT](PROJECT.md)；系统 [systems](systems/README.md)；计划 [plans](plans/README.md)；验收 [规范](acceptance/STANDARD.md) 与 [索引](acceptance/README.md)。\n\n## 项目与工程入口\n\n- 当前阶段与运行版本：待填写。\n- 正式目录、引擎/运行时及版本：待核实。\n- 启动与检查命令：待核实；无工程时标明尚未初始化。\n- 发布/付费/审核/预算等边界：按实际授权记录，未约定不推定。\n\n## 缺口与下一步\n\n完成 PROJECT 与工程入口核实；按 [接入指南](ADOPTION.md) 检查后更新接入结论。尚未进行游戏验收。\n`);
-payload.set('docs/plans/active/.gitkeep', '');
-payload.set('docs/plans/completed/.gitkeep', '');
+payload.set('docs/PROJECT.md', `# 项目白皮书
+
+## 已确认的项目方向
+目标玩家、核心体验、核心循环、用户要求与排除项：待核实。
+只记录用户明确确认的内容，注明来源与认可范围；占位不是确认设计。
+
+## AI 当前整体方案
+当前采用但未经明确确认的整体设计：待填写。
+在已确认边界与任务范围内可自主调整，重要体验变化说明原因与结果。
+
+## 系统设计入口
+按需链接已有 System；每个系统区分已确认设计与 AI 当前方案，不预建空正文。
+
+## AI 维护的接续信息
+当前阶段、关键缺口和下一步：待核实，仅保留有用信息。
+运行与工程入口：待核实；尚无工程时如实注明。
+
+## 框架接入
+- 框架版本：${version}；来源 commit/下载来源：待记录，本地未发布副本须注明。
+- 骨架已生成，尚待核实填写；按 [接入指南](ADOPTION.md) 完成内容检查。
+`);
+
+
 console.log(`Target: ${target}\nMode: ${apply ? 'apply' : 'preview'}\nFramework: ${version}`);
 if (occupied) {
-  console.log('Existing project: preserve all content. Agent must map and merge using docs/ADOPTION.md.');
+  console.log('Existing project: Agent must migrate and merge valid content into the framework layout using docs/ADOPTION.md.');
   if (apply) fail('Refused: --apply only supports absent or empty targets. No files changed.');
   process.exit(0);
 }

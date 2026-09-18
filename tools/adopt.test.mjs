@@ -20,7 +20,15 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.equal(run('--target', target, '--apply').status, 0);
   const check = spawnSync(process.execPath, [path.join(tools, 'check.mjs'), target], { encoding: 'utf8' });
   assert.equal(check.status, 0, check.stdout + check.stderr);
-  assert.ok(fs.readFileSync(path.join(target, 'docs/STATUS.md'), 'utf8').includes('尚待核实'));
+  const project = fs.readFileSync(path.join(target, 'docs/PROJECT.md'), 'utf8');
+  assert.ok(project.includes('尚待核实'));
+  assert.ok(project.includes('已确认的项目方向'));
+  assert.ok(project.includes('AI 当前整体方案'));
+  assert.equal(project.includes('7a9cad3'), false, 'framework state must not leak into a new game');
+  assert.equal(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8').includes('(docs/PROJECT.md)'), true);
+  for (const obsolete of ['docs/STATUS.md', 'docs/README.md', 'docs/acceptance', 'docs/references', 'docs/plans']) {
+    assert.equal(fs.existsSync(path.join(target, obsolete)), false, obsolete);
+  }
   assert.equal(fs.existsSync(path.join(target, '.git')), false);
   assert.equal(fs.existsSync(path.join(target, 'LICENSE')), false);
   assert.ok(fs.existsSync(path.join(target, 'docs/FRAMEWORK-LICENSE.txt')));
