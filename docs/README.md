@@ -2,6 +2,7 @@
 
 | 想知道什么 | 主要维护位置 |
 | --- | --- |
+| 开工是否用分支、何时更新文档 | [Agent 规则](../AGENTS.md#开工前的分支约定) |
 | 如何接入或升级 | [ADOPTION](ADOPTION.md) |
 | 项目要做什么、哪些不可擅改 | [PROJECT](PROJECT.md) |
 | 当前做到哪里、如何运行与接续 | [STATUS](STATUS.md) |

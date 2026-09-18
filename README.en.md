@@ -82,7 +82,9 @@ Each category has one primary place of maintenance; other documents link to it. 
 
 ## Development workflow
 
-**Request and design boundaries → plan when needed → implement and verify → review a major delivery → update system, status, and index → archive the finished plan.**
+**State the branch approach and design boundaries → plan when needed → implement with matching documentation and early checks → review and close out the delivery → integrate and check the result as agreed.**
+
+Before editing, state whether the work uses a development branch or goes directly onto the mainline, and why. Follow existing agreements without asking again; otherwise, multi-step optimizations default to a development branch, while small fixes may use the mainline. Plans and proposals may precede implementation if clearly marked unimplemented. Commits that change documented behavior include the corresponding documentation updates. Merge code, assets, and documents together, resolve semantic conflicts, and check the integrated result. Being merged, enabled in the normal game entry point, and verified are separate facts. See [AGENTS.md](AGENTS.md) for the operative rules.
 
 | Work | Expected process |
 | --- | --- |
