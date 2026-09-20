@@ -27,6 +27,13 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.equal(project.includes('7a9cad3'), false, 'framework state must not leak into a new game');
   assert.equal(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8').includes('(docs/PROJECT.md)'), true);
   assert.match(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8'), /交付收尾与证据一致性/);
+  const agents = fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8');
+  const readme = fs.readFileSync(path.join(target, 'README.md'), 'utf8');
+  assert.ok(agents.includes('(README.md#文档入口)'));
+  assert.match(readme, /## 文档入口/);
+  assert.ok(readme.includes('(docs/PROJECT.md)'));
+  assert.ok(readme.includes('尚无游戏运行入口'));
+  assert.equal(readme.includes('Cooperzheng/ai-game-dev-framework'), false, 'framework README must not leak into a new game');
   assert.equal(fs.existsSync(path.join(target, '.codex')), false, 'adoption must not install host hooks');
   for (const obsolete of ['docs/STATUS.md', 'docs/README.md', 'docs/acceptance', 'docs/references', 'docs/plans']) {
     assert.equal(fs.existsSync(path.join(target, obsolete)), false, obsolete);
@@ -44,9 +51,11 @@ test('existing project is preserved byte for byte', () => {
   const target = path.join(temp, 'existing'); fs.mkdirSync(target);
   fs.writeFileSync(path.join(target, 'AGENTS.md'), 'User rules\n');
   fs.writeFileSync(path.join(target, 'game.js'), 'existing code');
+  fs.writeFileSync(path.join(target, 'README.md'), 'Existing project overview\n');
   assert.equal(run('--target', target).status, 0);
   assert.notEqual(run('--target', target, '--apply').status, 0);
-  assert.deepEqual(fs.readdirSync(target).sort(), ['AGENTS.md', 'game.js']);
+  assert.deepEqual(fs.readdirSync(target).sort(), ['AGENTS.md', 'README.md', 'game.js']);
+  assert.equal(fs.readFileSync(path.join(target, 'README.md'), 'utf8'), 'Existing project overview\n');
   assert.equal(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8'), 'User rules\n');
   assert.equal(fs.readFileSync(path.join(target, 'game.js'), 'utf8'), 'existing code');
 });

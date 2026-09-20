@@ -14,13 +14,18 @@ If the user wants thick, layered clouds like a reference image, installing volum
 
 A reference applies only within the user's approved scope. Approval of cloud texture does not authorize redesigning terrain or the entire color palette. See the [fictional example](docs/references/WORKED-EXAMPLE.md).
 
-## Three core locations
+## Documentation entry
 
 | Location | Responsibility |
 | --- | --- |
-| [AGENTS.md](AGENTS.md) | Experience goals, confirmation boundaries, and reading/update rules |
-| docs/PROJECT.md | The design brief: intended experience, audience, overall direction, and user requirements |
-| docs/systems/ | Pure system design: features, controls, feedback, values, and gameplay relationships |
+| [AGENTS.md](AGENTS.md) | Working rules, authority boundaries, and required reading triggers |
+| [PROJECT](docs/PROJECT.md) | This framework's direction and current state; downstream games keep their own design brief at this path |
+| [System guide](docs/systems/README.md) | How to document pure system design |
+| [Adoption guide](docs/ADOPTION.md) | Initialization, existing projects, and upgrades |
+| [Experience example](docs/references/WORKED-EXAMPLE.md) | Judging completion against actual experience |
+| [Changelog](CHANGELOG.md) | Version changes and historical verification scope |
+
+The README documentation entry serves both people and agents. Reuse an equivalent existing overview instead of adding an AI-only duplicate. AGENTS keeps reading triggers and working rules; detailed catalogs, project state, commands, templates, and engineering cases belong in their relevant documents. Preserve applicable constraints when moving content. Technical architecture governs interfaces and engineering limits, not design authorization.
 
 PROJECT and System documents distinguish:
 
@@ -63,7 +68,7 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 
 The first Node command previews changes. Apply accepts only an absent or empty target. Nonempty projects, including one containing only .git, are merged by the agent. Paths are relative to the terminal directory; quote spaces and keep the framework checkout separate.
 
-The tool generates core documents, the System guide, adoption instructions, and a separate framework license. It does not create Plans, acceptance folders, a reference library, game code, engines, Git repositories, or commits. Fill in actual requirements before declaring adoption complete. Manual adoption is available without Node.
+The tool generates a short project README with documentation links, core documents, the System guide, adoption instructions, and a separate framework license. It does not create Plans, acceptance folders, a reference library, game code, engines, Git repositories, or commits. Fill in actual requirements before declaring adoption complete. Manual adoption is available without Node.
 
 ## Maintenance and verification
 

@@ -35,6 +35,23 @@ const files = ['AGENTS.md', 'docs/ADOPTION.md', 'docs/systems/README.md'];
 const payload = new Map(files.map(name => [name, fs.readFileSync(path.join(root, name), 'utf8')]));
 payload.set('docs/FRAMEWORK-LICENSE.txt', fs.readFileSync(path.join(root, 'LICENSE'), 'utf8'));
 const version = fs.readFileSync(path.join(root, 'VERSION'), 'utf8').trim();
+payload.set('README.md', `# 游戏项目
+
+项目名称与简介待填写；当前仅生成文档骨架，尚无游戏运行入口。
+
+## 文档入口
+
+人和 AI 共用此入口，按任务读取，不另建重复目录。
+
+| 内容 | 入口与职责 |
+|---|---|
+| 工作规则 | [AGENTS](AGENTS.md)：工作边界与阅读触发条件 |
+| 项目方向 | [PROJECT](docs/PROJECT.md)：核心体验、要求与系统入口 |
+| 系统设计 | [系统说明](docs/systems/README.md)：已确认设计与 AI 当前方案 |
+| 框架接入 | [接入指南](docs/ADOPTION.md)：初始化、升级与完成检查 |
+
+已有运行说明、技术架构、工程实践或验收记录时，在这里补入真实入口；不预建空文档，不在目录复制正文。
+`);
 payload.set('docs/PROJECT.md', `# 项目白皮书
 
 ## 已确认的项目方向
