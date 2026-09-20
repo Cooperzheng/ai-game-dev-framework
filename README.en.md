@@ -21,6 +21,7 @@ A reference applies only within the user's approved scope. Approval of cloud tex
 | [AGENTS.md](AGENTS.md) | Working rules, authority boundaries, and required reading triggers |
 | [PROJECT](docs/PROJECT.md) | This framework's direction and current state; downstream games keep their own design brief at this path |
 | [System guide](docs/systems/README.md) | How to document pure system design |
+| [Domain standards](docs/standards/README.md) | Standard organization and UI quality baseline |
 | [Adoption guide](docs/ADOPTION.md) | Initialization, existing projects, and upgrades |
 | [Experience example](docs/references/WORKED-EXAMPLE.md) | Judging completion against actual experience |
 | [Changelog](CHANGELOG.md) | Version changes and historical verification scope |
@@ -68,7 +69,7 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 
 The first Node command previews changes. Apply accepts only an absent or empty target. Nonempty projects, including one containing only .git, are merged by the agent. Paths are relative to the terminal directory; quote spaces and keep the framework checkout separate.
 
-The tool generates a short project README with documentation links, core documents, the System guide, adoption instructions, and a separate framework license. It does not create Plans, acceptance folders, a reference library, game code, engines, Git repositories, or commits. Fill in actual requirements before declaring adoption complete. Manual adoption is available without Node.
+The tool generates a short project README with documentation links, core documents, the System guide, standards organization and UI baseline, adoption instructions, and a separate framework license. It does not create Plans, acceptance folders, a reference library, game code, engines, Git repositories, or commits. Fill in actual requirements before declaring adoption complete. Manual adoption is available without Node.
 
 ## Maintenance and verification
 
@@ -77,3 +78,9 @@ See [VERSION](VERSION) and [CHANGELOG](CHANGELOG.md). Compare and merge upgrades
 Framework checks: `node tools/check.mjs`, `node --test tools/adopt.test.mjs`, and a Git diff check. These verify local links and initializer behavior, not gameplay quality, long-term design consistency, or real-project migration.
 
 [MIT License](LICENSE). Third-party references and downstream game assets retain their respective licenses.
+
+## Standards and skills
+
+Keep mandatory triggers and a few core constraints in AGENTS.md. Maintain detailed quality rules once in [domain standards](docs/standards/README.md); the [UI baseline](docs/standards/ui.md) covers useful player-facing text, hierarchy, interaction and real-screen review. PROJECT/System remains authoritative for concrete game design. Skills can package reusable knowledge or workflows and reference standards; optional skill selection must not be the only route to mandatory rules.
+
+Version 0.1.6 initialization also includes these two populated standards documents and their README routes. Existing projects merge equivalent standards without overwriting confirmed design. No skills, hooks or empty standards are installed.

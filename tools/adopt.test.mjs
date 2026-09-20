@@ -34,6 +34,10 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.ok(readme.includes('(docs/PROJECT.md)'));
   assert.ok(readme.includes('尚无游戏运行入口'));
   assert.equal(readme.includes('Cooperzheng/ai-game-dev-framework'), false, 'framework README must not leak into a new game');
+  assert.ok(agents.includes('(docs/standards/ui.md)'));
+  assert.ok(readme.includes('(docs/standards/README.md)'));
+  assert.match(fs.readFileSync(path.join(target, 'docs/standards/ui.md'), 'utf8'), /无明确用途/);
+  assert.equal(fs.existsSync(path.join(target, '.agents/skills')), false, 'standards must not install skills');
   assert.equal(fs.existsSync(path.join(target, '.codex')), false, 'adoption must not install host hooks');
   for (const obsolete of ['docs/STATUS.md', 'docs/README.md', 'docs/acceptance', 'docs/references', 'docs/plans']) {
     assert.equal(fs.existsSync(path.join(target, obsolete)), false, obsolete);

@@ -11,7 +11,7 @@
 - PROJECT：用户确认的目标玩家、体验、核心循环、要求和排除项；另列 AI 当前整体方案、必要接续信息与系统入口。没有确认的内容不推定确认。
 - System：有实际系统时再创建，仅包含已确认设计与 AI 当前设计方案，不写技术实现。
 
-无 Node 时复制 AGENTS.md、docs/ADOPTION.md、docs/systems/README.md，并新建上述项目 README 和 PROJECT；不要复制框架自身的介绍或状态。将框架 LICENSE 保存为 docs/FRAMEWORK-LICENSE.txt，不覆盖游戏的 LICENSE，也不推定其代码或资产采用 MIT。Plan 和 references 按需使用，不预建。
+无 Node 时复制 AGENTS.md、docs/ADOPTION.md、docs/systems/README.md、docs/standards/README.md 和 docs/standards/ui.md，并新建上述项目 README 和 PROJECT；不要复制框架自身的介绍或状态。将框架 LICENSE 保存为 docs/FRAMEWORK-LICENSE.txt，不覆盖游戏的 LICENSE，也不推定其代码或资产采用 MIT。Plan 和 references 按需使用，不预建。
 
 ## 已有项目与升级
 
@@ -24,6 +24,10 @@
 7. 0.1.4补充交付收尾与证据一致性规则：合并到已有AGENTS约定，按影响核对运行说明和验收入口。无需为历史结果补造受测快照，不批量重跑无关验收；hook由项目选择，初始化不安装hook，也不修改宿主信任或用户级配置。
 
 8. 0.1.5明确文档职责：优先完善已有 README 的文档入口，已有等效总览则沿用，不额外新建 AI 专用目录。将 AGENTS 中的目录、状态、长案例和模板移至对应文档，保留工作规则、权限边界及适用条件；技术架构不覆盖设计授权。核对原有锚点与引用，不因精简丢失有效约束或扩张适用范围。
+
+## 专项规范接入
+
+0.1.6 增加专项规范路由：新项目生成有实际内容的规范说明与 UI 基础规范，不安装 Skill 或 hook。已有项目优先合并等效规范，保留用户确认设计与本地审核要求；AGENTS 只留触发条件、核心底线与路径，README 补目录，System 不重复维护规范。仅同步这些内容不等于完整升级其他规则。无 UI 的任务无需加载 UI 规范，也不预建其他空规范。
 
 ## 完成检查
 

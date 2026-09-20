@@ -30,7 +30,7 @@ while (true) {
 const relative = path.relative(root, target);
 if (relative === '' || (!relative.startsWith('..' + path.sep) && relative !== '..' && !path.isAbsolute(relative))) fail('Target must be outside the framework checkout.');
 const occupied = fs.existsSync(target) && fs.readdirSync(target).length > 0;
-const files = ['AGENTS.md', 'docs/ADOPTION.md', 'docs/systems/README.md'];
+const files = ['AGENTS.md', 'docs/ADOPTION.md', 'docs/systems/README.md', 'docs/standards/README.md', 'docs/standards/ui.md'];
 // Read all sources before any mutation. Never copy framework state into a game.
 const payload = new Map(files.map(name => [name, fs.readFileSync(path.join(root, name), 'utf8')]));
 payload.set('docs/FRAMEWORK-LICENSE.txt', fs.readFileSync(path.join(root, 'LICENSE'), 'utf8'));
@@ -48,6 +48,7 @@ payload.set('README.md', `# 游戏项目
 | 工作规则 | [AGENTS](AGENTS.md)：工作边界与阅读触发条件 |
 | 项目方向 | [PROJECT](docs/PROJECT.md)：核心体验、要求与系统入口 |
 | 系统设计 | [系统说明](docs/systems/README.md)：已确认设计与 AI 当前方案 |
+| 专项规范 | [规范说明](docs/standards/README.md)与[UI 规范](docs/standards/ui.md)：质量要求及按需阅读 |
 | 框架接入 | [接入指南](docs/ADOPTION.md)：初始化、升级与完成检查 |
 
 已有运行说明、技术架构、工程实践或验收记录时，在这里补入真实入口；不预建空文档，不在目录复制正文。
