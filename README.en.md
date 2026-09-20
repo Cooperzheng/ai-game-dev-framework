@@ -39,6 +39,10 @@ Update changed requirements and current gameplay in the relevant design location
 
 If the host does not automatically load AGENTS, explicitly request it or reference it from its supported instructions. Report document adoption separately from verified host loading; if not exercised, mark loading unverified. Initializer and link tests do not prove agent behavior. The framework cannot guarantee automatic compliance by every agent.
 
+At delivery, check the existing documentation entry points against the affected design, running behavior, and evidence scope. Distinguish current passes, failures, unrun checks, historical results, and stale results. Identify tested files and configuration rather than citing HEAD alone for a dirty working tree; retain earlier attempts and recheck affected inputs after changes. Exercise the launch and main entry before handing over a playable build, and explain save implications when data locations change. See the [closeout rules](AGENTS.md#交付收尾与证据一致性).
+
+Checks and hooks remain project choices. Start with reliable scripts before adding advice or limited blocking; do not treat tool errors as passes or force ordinary discussions, honest failure reports, or user interruptions into repeated continuation. The initializer still creates core documents only, without host hooks.
+
 ## Adopt into a project
 
 Open the target game project and send:

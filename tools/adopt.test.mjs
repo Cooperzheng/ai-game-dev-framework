@@ -26,6 +26,8 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.ok(project.includes('AI 当前整体方案'));
   assert.equal(project.includes('7a9cad3'), false, 'framework state must not leak into a new game');
   assert.equal(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8').includes('(docs/PROJECT.md)'), true);
+  assert.match(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8'), /交付收尾与证据一致性/);
+  assert.equal(fs.existsSync(path.join(target, '.codex')), false, 'adoption must not install host hooks');
   for (const obsolete of ['docs/STATUS.md', 'docs/README.md', 'docs/acceptance', 'docs/references', 'docs/plans']) {
     assert.equal(fs.existsSync(path.join(target, obsolete)), false, obsolete);
   }
