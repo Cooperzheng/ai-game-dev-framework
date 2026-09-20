@@ -70,3 +70,5 @@ The framework provides accessible design context; it cannot guarantee that every
 Maintenance checks: `node tools/check.mjs` and `node --test tools/adopt.test.mjs`. These verify document links and initializer behavior, not gameplay quality or long-term design consistency.
 
 [Version](VERSION) · [Changes and verification](CHANGELOG.md) · [MIT License](LICENSE). Merge upgrades by comparing changes. Third-party references and game assets retain their own licenses.
+
+If this framework helps you, consider giving it a star so you can find it again.

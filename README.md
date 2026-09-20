@@ -70,3 +70,5 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 维护检查：`node tools/check.mjs`、`node --test tools/adopt.test.mjs`。这些检查验证文档链接与初始化行为，不证明真实游戏体验或长期设计一致性。
 
 [版本](VERSION) · [变更与验证记录](CHANGELOG.md) · [MIT License](LICENSE)。升级按差异合并；第三方资料和游戏资产沿用各自许可。
+
+如果这套框架对你有帮助，欢迎点个 Star，方便以后找到它。
