@@ -49,6 +49,8 @@ If you request thick clouds like those in a reference image, integrating volumet
 
 The [fictional example](docs/references/WORKED-EXAMPLE.md) illustrates the rules; it is not evidence of measured results. The [closeout rules](AGENTS.md#交付收尾与证据一致性) cover playable entry checks, tested versions, and the distinction between current and historical results.
 
+[Lightweight acceptance and retention](docs/standards/acceptance.md) keeps routine delivery brief and usually retains 3–5 screenshots for major releases or modules. Full snapshots, verification copies, and reports are not defaults. Checks follow the scope of the change; cleanup protects dependencies and unique work.
+
 ## Optional: initialize an empty project
 
 Requires Git and Node.js 18+, with no third-party dependencies:

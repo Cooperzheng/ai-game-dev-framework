@@ -35,6 +35,9 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.ok(readme.includes('尚无游戏运行入口'));
   assert.equal(readme.includes('Cooperzheng/ai-game-dev-framework'), false, 'framework README must not leak into a new game');
   assert.ok(agents.includes('(docs/standards/ui.md)'));
+  assert.ok(agents.includes('(docs/standards/acceptance.md)'));
+  assert.ok(readme.includes('(docs/standards/acceptance.md)'));
+  assert.match(fs.readFileSync(path.join(target, 'docs/standards/acceptance.md'), 'utf8'), /不默认保存完整源码/);
   assert.ok(readme.includes('(docs/standards/README.md)'));
   assert.match(fs.readFileSync(path.join(target, 'docs/standards/ui.md'), 'utf8'), /无明确用途/);
   assert.equal(fs.existsSync(path.join(target, '.agents/skills')), false, 'standards must not install skills');
@@ -62,6 +65,18 @@ test('existing project is preserved byte for byte', () => {
   assert.equal(fs.readFileSync(path.join(target, 'README.md'), 'utf8'), 'Existing project overview\n');
   assert.equal(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8'), 'User rules\n');
   assert.equal(fs.readFileSync(path.join(target, 'game.js'), 'utf8'), 'existing code');
+});
+test('history is opt-in but current documents still validate local links', () => {
+  const target = path.join(temp, 'history');
+  fs.mkdirSync(path.join(target, 'docs/acceptance'), { recursive: true });
+  fs.mkdirSync(path.join(target, 'docs/plans/completed'), { recursive: true });
+  fs.writeFileSync(path.join(target, 'docs/acceptance/old.md'), '[old](missing.png)');
+  fs.writeFileSync(path.join(target, 'docs/plans/completed/old.md'), '[old](missing.png)');
+  const check = (...args) => spawnSync(process.execPath, [path.join(tools, 'check.mjs'), target, ...args], { encoding: 'utf8' });
+  assert.equal(check().status, 0);
+  assert.equal(check('--local-evidence').status, 1);
+  fs.writeFileSync(path.join(target, 'docs/plans/README.md'), '[current](missing.md)');
+  assert.equal(check().status, 1);
 });
 test('reject invalid arguments and a file as destination', () => {
   assert.notEqual(run('--apply').status, 0);
