@@ -42,12 +42,19 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.match(fs.readFileSync(path.join(target, 'docs/standards/ui.md'), 'utf8'), /无明确用途/);
   assert.equal(fs.existsSync(path.join(target, '.agents/skills')), false, 'standards must not install skills');
   assert.equal(fs.existsSync(path.join(target, '.codex')), false, 'adoption must not install host hooks');
-  for (const obsolete of ['docs/STATUS.md', 'docs/README.md', 'docs/acceptance', 'docs/references', 'docs/plans']) {
+  for (const obsolete of ['docs/STATUS.md', 'docs/README.md', 'docs/systems', 'docs/engineering', 'docs/acceptance', 'docs/references', 'docs/plans', 'docs/local', 'docs/本地资料']) {
     assert.equal(fs.existsSync(path.join(target, obsolete)), false, obsolete);
   }
   assert.equal(fs.existsSync(path.join(target, '.git')), false);
   assert.equal(fs.existsSync(path.join(target, 'LICENSE')), false);
-  assert.ok(fs.existsSync(path.join(target, 'docs/FRAMEWORK-LICENSE.txt')));
+  assert.ok(fs.existsSync(path.join(target, 'docs/release/FRAMEWORK-LICENSE.txt')));
+  assert.equal(fs.existsSync(path.join(target, 'docs/FRAMEWORK-LICENSE.txt')), false);
+  assert.deepEqual(fs.readdirSync(path.join(target, 'docs/modules')), ['README.md'], 'do not invent empty modules');
+  assert.ok(readme.includes('(docs/modules/README.md)'));
+  const ignore = fs.readFileSync(path.join(target, '.gitignore'), 'utf8');
+  assert.match(ignore, /^\/docs\/local\/$/m);
+  assert.match(ignore, /^\/docs\/本地资料\/$/m);
+  assert.equal(fs.readFileSync(path.join(target, 'docs/release/FRAMEWORK-LICENSE.txt'), 'utf8'), fs.readFileSync(path.resolve(tools, '../LICENSE'), 'utf8'));
   assert.equal(fs.existsSync(path.join(target, 'tools')), false);
   assert.equal(fs.existsSync(path.join(target, 'docs/references/WORKED-EXAMPLE.md')), false);
   const before = fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8');
@@ -72,11 +79,29 @@ test('history is opt-in but current documents still validate local links', () =>
   fs.mkdirSync(path.join(target, 'docs/plans/completed'), { recursive: true });
   fs.writeFileSync(path.join(target, 'docs/acceptance/old.md'), '[old](missing.png)');
   fs.writeFileSync(path.join(target, 'docs/plans/completed/old.md'), '[old](missing.png)');
+  for (const folder of ['docs/local/acceptance', 'docs/本地资料/历史展示']) {
+    fs.mkdirSync(path.join(target, folder), { recursive: true });
+    fs.writeFileSync(path.join(target, folder, 'old.md'), '[old](missing.png)');
+  }
   const check = (...args) => spawnSync(process.execPath, [path.join(tools, 'check.mjs'), target, ...args], { encoding: 'utf8' });
   assert.equal(check().status, 0);
   assert.equal(check('--local-evidence').status, 1);
   fs.writeFileSync(path.join(target, 'docs/plans/README.md'), '[current](missing.md)');
   assert.equal(check().status, 1);
+});
+
+test('module design and implementation routes are checked in localized folders', () => {
+  const target = path.join(temp, 'module routes');
+  assert.equal(run('--target', target, '--apply').status, 0);
+  const module = path.join(target, 'docs/modules/航行');
+  fs.mkdirSync(module, { recursive: true });
+  fs.writeFileSync(path.join(module, 'DESIGN.md'), '# 航行设计\n[实现](IMPLEMENTATION.md)');
+  fs.writeFileSync(path.join(module, 'IMPLEMENTATION.md'), '# 航行实现\n[设计](DESIGN.md)');
+  fs.appendFileSync(path.join(target, 'README.md'), '\n[航行设计](docs/modules/航行/DESIGN.md)\n');
+  const check = () => spawnSync(process.execPath, [path.join(tools, 'check.mjs'), target], { encoding: 'utf8' });
+  assert.equal(check().status, 0);
+  fs.writeFileSync(path.join(module, 'IMPLEMENTATION.md'), '[broken current input](missing.json)');
+  assert.equal(check().status, 1, 'current module failures must not be hidden as local evidence');
 });
 test('reject invalid arguments and a file as destination', () => {
   assert.notEqual(run('--apply').status, 0);

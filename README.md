@@ -22,7 +22,7 @@
 
 在目标游戏项目中，把下面这段话发给 AI：
 
-> 请将 https://github.com/Cooperzheng/ai-game-dev-framework 接入当前项目。先读 BOOTSTRAP.md。保留有效设计、工程知识和历史记录，将游戏目标与用户要求归入 PROJECT，系统设计归入 systems，区分已确认设计与 AI 当前方案。检查并报告接入结果及规则加载情况。本次只接入，不提交或推送。
+> 请将 https://github.com/Cooperzheng/ai-game-dev-framework 接入当前项目。先读 BOOTSTRAP.md。保留有效设计、工程知识和历史记录，将游戏目标与用户要求归入 PROJECT，模块设计与实现归入同名模块目录，区分已确认设计与 AI 当前方案。检查并报告接入结果及规则加载情况。本次只接入，不提交或推送。
 
 已有项目按[接入指南](docs/ADOPTION.md)合并，保留原有约束。首次接入需要整理已有设计；后续由 AI 按规则维护变化，设计者主要确认目标和重要取舍。
 
@@ -32,7 +32,9 @@
 | --- | --- |
 | [AGENTS.md](AGENTS.md) | 规定何时读取设计、如何维护要求、如何判断完成 |
 | docs/PROJECT.md | 保存游戏核心体验、整体方向与用户要求 |
-| docs/systems/ | 按系统保存玩法、操作、反馈与当前设计 |
+| docs/modules/模块名/DESIGN.md | 模块的体验、规则、操作和确认范围 |
+| 同模块 IMPLEMENTATION.md（按需） | 实现、参数、制作、专用操作与当前复验 |
+| docs/engineering/、standards/、references/、release/、local/ | 共用工程、规范、参考、发行输入、本地材料 |
 
 PROJECT 和 System 区分两类内容：
 
@@ -41,7 +43,7 @@ PROJECT 和 System 区分两类内容：
 
 例如，你要求“主动躲避，不引入体力管理”。AI 可以提出闪避和翻滚、调校尚未确认的冷却，但不能自行加入体力消耗。下一轮开发先读取这些依据，设计变化再更新回正文。
 
-系统文档按需建立，Plan 可选，技术实现留在工程文档或代码中。框架不要求固定开发流程。
+模块文档按需建立，设计与实现同目录；中文项目可使用“模块/模块名/设计.md、实现.md”。Plan 可选，不预建空实现或重复目录。具体分工见[文档组织](docs/standards/README.md#按模块组织项目文档)。
 
 ## 以实际体验检查交付
 
@@ -64,6 +66,20 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 第一条 node 命令只预览；`--apply` 只接受不存在或为空的目标。路径相对终端当前目录，含空格时加引号，框架副本与游戏目录分开。非空项目由 AI 按接入指南合并；无 Node 可手动接入。
 
 工具生成文档骨架，不生成游戏代码或安装引擎。填写真实设计依据后才算完成接入；本仓库的 [PROJECT](docs/PROJECT.md) 描述框架自身，不能直接作为游戏的设计文档。
+
+## 文档入口
+
+本表为框架仓库的导航；游戏项目的 README 由接入工具单独生成，按实际模块维护。
+
+| 内容 | 入口 |
+| --- | --- |
+| 工作规则与来源 | [AGENTS](AGENTS.md) · [框架方向](docs/PROJECT.md) |
+| 接入与升级 | [BOOTSTRAP](BOOTSTRAP.md) · [接入指南](docs/ADOPTION.md) |
+| 文档分工与模板 | [文档组织](docs/standards/README.md#按模块组织项目文档) · [模块设计/实现模板](docs/systems/README.md) |
+| 专项规范 | [UI](docs/standards/ui.md) · [验收与轻量留存](docs/standards/acceptance.md) |
+| 参考与案例 | [参考说明](docs/references/README.md) · [虚构示例](docs/references/WORKED-EXAMPLE.md) |
+| 可选过程记录 | [工作记录说明](docs/plans/README.md)，不承担当前设计 |
+| 版本与许可 | [版本](VERSION) · [变更记录](CHANGELOG.md) · [LICENSE](LICENSE) |
 
 ## 边界与维护
 

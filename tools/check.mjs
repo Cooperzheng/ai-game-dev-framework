@@ -10,7 +10,7 @@ function walk(dir) {
     if (item.name.startsWith('.') || item.name === 'node_modules') continue;
     const full = path.join(dir, item.name);
     const relative = path.relative(root, full).split(path.sep).join('/');
-    if (!includeArchives && (relative === 'docs/acceptance' || (relative.startsWith('docs/plans/') && relative !== 'docs/plans/README.md'))) continue;
+    if (!includeArchives && (relative === 'docs/local' || relative === 'docs/本地资料' || relative === 'docs/acceptance' || (relative.startsWith('docs/plans/') && relative !== 'docs/plans/README.md'))) continue;
     if (item.isSymbolicLink()) continue;
     if (item.isDirectory()) walk(full);
     else if (item.name.endsWith('.md')) {

@@ -22,7 +22,7 @@ This lightweight set of documents and collaboration rules keeps game goals, conf
 
 Open the target game project and send this to your AI agent:
 
-> Integrate https://github.com/Cooperzheng/ai-game-dev-framework into this project. Read BOOTSTRAP.md first. Preserve valid design, engineering knowledge, and historical records. Keep game goals and user requirements in PROJECT, system design in systems, and distinguish confirmed design from current AI proposals. Check and report the adoption result and whether the host loads the rules. Only integrate the framework; do not commit or push.
+> Integrate https://github.com/Cooperzheng/ai-game-dev-framework into this project. Read BOOTSTRAP.md first. Preserve valid design, engineering knowledge, and historical records. Keep game goals and user requirements in PROJECT, each module's design and implementation together under docs/modules, and distinguish confirmed design from current AI proposals. Check and report the adoption result and whether the host loads the rules. Only integrate the framework; do not commit or push.
 
 For existing projects, follow the [adoption guide](docs/ADOPTION.md) and preserve their constraints. Initial adoption requires organizing existing design material. Afterward, the agent is instructed to maintain changes while the designer mainly confirms goals and important tradeoffs.
 
@@ -32,7 +32,9 @@ For existing projects, follow the [adoption guide](docs/ADOPTION.md) and preserv
 | --- | --- |
 | [AGENTS.md](AGENTS.md) | When to read design, how to maintain requirements, and how to judge completion |
 | docs/PROJECT.md | The game's core experience, overall direction, and user requirements |
-| docs/systems/ | Gameplay, controls, feedback, and current design, organized by system |
+| docs/modules/<module>/DESIGN.md | Player experience, rules, controls, and confirmed scope |
+| IMPLEMENTATION.md in the same module (when needed) | Implementation, parameters, authoring, module checks, and current results |
+| docs/engineering/, standards/, references/, release/, local/ | Shared engineering, standards, references, release inputs, and local records |
 
 PROJECT and System documents distinguish:
 
@@ -41,7 +43,7 @@ PROJECT and System documents distinguish:
 
 For example, you require active dodging without stamina management. The agent can propose dodges and rolls and tune unconfirmed cooldowns, but cannot introduce stamina on its own. Subsequent work reads these requirements first and writes design changes back to the documents.
 
-Create system documents as needed. Plans are optional, and technical implementation stays in engineering documentation or code. There is no mandatory development workflow.
+Create module documents as needed and keep design and implementation together. Names may be localized; do not create empty implementation files or unused directories. Keep the complete navigation in the project README. Plans remain optional. See the [organization rules](docs/standards/README.md#按模块组织项目文档).
 
 ## Check delivery against the experience
 
@@ -64,6 +66,10 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 The first Node command previews changes; `--apply` accepts only an absent or empty target. Paths are relative to the terminal directory. Quote paths containing spaces and keep the framework checkout separate from the game. Agents merge nonempty projects using the adoption guide; manual adoption is available without Node.
 
 The tool generates document scaffolding, not game code or an engine installation. Fill in real design requirements to complete adoption. This repository's [PROJECT](docs/PROJECT.md) describes the framework itself and must not be used as the game's design brief.
+
+## Document entry points
+
+Use the [shared framework directory](README.md#文档入口) for adoption, module templates, standards, references, and version information. Generated games receive their own README with links to their actual modules.
 
 ## Limits and maintenance
 
