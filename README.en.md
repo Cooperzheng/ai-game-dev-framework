@@ -51,7 +51,7 @@ If you request thick clouds like those in a reference image, integrating volumet
 
 The [fictional example](docs/references/WORKED-EXAMPLE.md) illustrates the rules; it is not evidence of measured results. The [closeout rules](AGENTS.md#交付收尾与证据一致性) cover playable entry checks, tested versions, and the distinction between current and historical results.
 
-[Lightweight acceptance and retention](docs/standards/acceptance.md) keeps routine delivery brief and usually retains 3–5 screenshots for major releases or modules. Full snapshots, verification copies, and reports are not defaults. Checks follow the scope of the change; cleanup protects dependencies and unique work.
+[Lightweight acceptance and retention](docs/standards/acceptance.md) unifies validation, delivery, retention, and cleanup. Routine delivery stays brief; major releases or modules usually keep 3–5 screenshots. Keep the latest valid media set per topic, with necessary baselines, comparisons, and rollback inputs. Checks follow the change; snapshots, copies, and reports are not defaults.
 
 ## Optional: initialize an empty project
 
