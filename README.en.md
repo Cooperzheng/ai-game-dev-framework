@@ -26,6 +26,14 @@ Open the target game project and send this to your AI agent:
 
 For existing projects, follow the [adoption guide](docs/ADOPTION.md) and preserve their constraints. Initial adoption requires organizing existing design material. Afterward, the agent is instructed to maintain changes while the designer mainly confirms goals and important tradeoffs.
 
+## Optional: define goals with game-goal
+
+[game-goal](https://github.com/Cooperzheng/game-goal) is a standalone Chinese-language skill for drafting, reviewing, and refining scope, player experience, audiovisual quality targets, and acceptance evidence. Use it explicitly when starting a project, improving a module, or reviewing an existing goal.
+
+After the user confirms the draft, place project-wide requirements in the game's `docs/PROJECT.md` and module requirements in the corresponding `DESIGN.md`, reusing equivalent existing structures. Keep unconfirmed suggestions as candidates or current AI proposals. The framework then supports ongoing development, design maintenance, and experience verification. Update goals in their owning documents instead of maintaining a duplicate Goal document.
+
+Both tools work independently. The framework does not automatically install or invoke game-goal, and drafting goals does not authorize development or publication.
+
 ## How it works
 
 | Location | Responsibility |
