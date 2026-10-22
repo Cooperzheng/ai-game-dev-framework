@@ -36,22 +36,22 @@ For existing projects, follow the [adoption guide](docs/ADOPTION.md) and preserv
 | IMPLEMENTATION.md in the same module (when needed) | Implementation, parameters, authoring, module checks, and current results |
 | docs/engineering/, standards/, references/, release/, local/ | Shared engineering, standards, references, release inputs, and local records |
 
-PROJECT and System documents distinguish:
+PROJECT and module design documents distinguish:
 
 - **Confirmed design:** what you explicitly requested or approved, with its source and scope. Changes to its meaning require alignment.
 - **Current AI proposal:** design details the agent can refine within its authorized scope. Implementation, passing tests, and silence do not imply approval.
 
 For example, you require active dodging without stamina management. The agent can propose dodges and rolls and tune unconfirmed cooldowns, but cannot introduce stamina on its own. Subsequent work reads these requirements first and writes design changes back to the documents.
 
-Create module documents as needed and keep design and implementation together. Names may be localized; do not create empty implementation files or unused directories. Keep the complete navigation in the project README. Plans remain optional. See the [organization rules](docs/standards/README.md#按模块组织项目文档).
+Create module documents once they have content, with design and implementation in the same folder (names may be localized). Plans remain optional. See the [organization rules](docs/standards/README.md#按模块组织项目文档).
 
 ## Check delivery against the experience
 
 If you request thick clouds like those in a reference image, integrating volumetric clouds is implementation progress. The agent should also compare shape, depth, and texture against the reference and explain remaining gaps. Approving cloud texture does not authorize redesigning terrain or the entire color palette.
 
-The [fictional example](docs/references/WORKED-EXAMPLE.md) illustrates the rules; it is not evidence of measured results. The [closeout rules](AGENTS.md#交付收尾与证据一致性) cover playable entry checks, tested versions, and the distinction between current and historical results.
+The [fictional example](docs/references/WORKED-EXAMPLE.md) illustrates the rules; it is not evidence of measured results. [Delivery and closeout](AGENTS.md#交付与收尾) covers playable entry checks, and the [acceptance standard](docs/standards/acceptance.md#交付) separates tested versions from historical results.
 
-[Lightweight acceptance and retention](docs/standards/acceptance.md) unifies validation, delivery, retention, and cleanup. Routine delivery stays brief; major releases or modules usually keep 3–5 screenshots. Keep the latest valid media set per topic, with necessary baselines, comparisons, and rollback inputs. Checks follow the change; snapshots, copies, and reports are not defaults.
+The [acceptance standard](docs/standards/acceptance.md) covers validation, delivery, retention, and cleanup. Routine delivery stays brief. After a round, keep only the user's material and what the round's plan says to keep (the plan sets how much); everything else is temporary and is listed and deleted at closeout. Checks follow the change; snapshots, copies, and reports are not defaults.
 
 ## Optional: initialize an empty project
 
@@ -65,7 +65,7 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 
 The first Node command previews changes; `--apply` accepts only an absent or empty target. Paths are relative to the terminal directory. Quote paths containing spaces and keep the framework checkout separate from the game. Agents merge nonempty projects using the adoption guide; manual adoption is available without Node.
 
-The tool generates document scaffolding, not game code or an engine installation. Fill in real design requirements to complete adoption. This repository's [PROJECT](docs/PROJECT.md) describes the framework itself and must not be used as the game's design brief.
+The tool generates document scaffolding from the templates in `tools/templates/`, not game code or an engine installation. Fill in real design requirements to complete adoption. This repository's [PROJECT](docs/PROJECT.md) describes the framework itself and must not be used as the game's design brief.
 
 ## Document entry points
 
@@ -73,9 +73,9 @@ Use the [shared framework directory](README.md#文档入口) for adoption, modul
 
 ## Limits and maintenance
 
-The framework provides accessible design context; it cannot guarantee that every agent follows it. If the host does not automatically load AGENTS, explicitly request it or reference it from the host's rules. Check document adoption and rule loading separately. Operational documents are currently Chinese-first.
+The framework provides accessible design context; it cannot guarantee that every agent follows it. If the host does not automatically load AGENTS, explicitly request it or reference it from the host's rules. Check document adoption and rule loading separately, as the [adoption guide](docs/ADOPTION.md#完成检查) describes. Operational documents are currently Chinese-first.
 
-Maintenance checks: `node tools/check.mjs` and `node --test tools/adopt.test.mjs`. These verify document links and initializer behavior, not gameplay quality or long-term design consistency.
+Maintenance checks: `node tools/check.mjs` (local links, heading anchors, and matching headings in the Chinese and English READMEs) and `node --test tools/adopt.test.mjs tools/check.test.mjs`. These verify document links and initializer behavior, not gameplay quality or long-term design consistency.
 
 [Version](VERSION) · [Changes and verification](CHANGELOG.md) · [MIT License](LICENSE). Merge upgrades by comparing changes. Third-party references and game assets retain their own licenses.
 

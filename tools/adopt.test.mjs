@@ -7,8 +7,8 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 const tools = path.dirname(fileURLToPath(import.meta.url));
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'game-framework-test-'));
-// Preserve fixtures for inspection; every run uses its own OS temporary directory.
-console.log(`Fixtures: ${temp}`);
+// Every run uses its own OS temporary directory; the fixtures are kept for inspection only when a test fails.
+process.on('exit', code => { if (code === 0) fs.rmSync(temp, { recursive: true, force: true }); else console.log(`Fixtures kept: ${temp}`); });
 const run = (...args) => spawnSync(process.execPath, [path.join(tools, 'adopt.mjs'), ...args], { encoding: 'utf8' });
 test('preview has no filesystem effects', () => {
   const target = path.join(temp, 'preview');
@@ -26,7 +26,7 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.ok(project.includes('AI 当前整体方案'));
   assert.equal(project.includes('7a9cad3'), false, 'framework state must not leak into a new game');
   assert.equal(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8').includes('(docs/PROJECT.md)'), true);
-  assert.match(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8'), /交付收尾与证据一致性/);
+  assert.match(fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8'), /交付与收尾/);
   const agents = fs.readFileSync(path.join(target, 'AGENTS.md'), 'utf8');
   const readme = fs.readFileSync(path.join(target, 'README.md'), 'utf8');
   assert.ok(agents.includes('(README.md#文档入口)'));
@@ -37,7 +37,7 @@ test('new project with Unicode and spaces has complete local routes', () => {
   assert.ok(agents.includes('(docs/standards/ui.md)'));
   assert.ok(agents.includes('(docs/standards/acceptance.md)'));
   assert.ok(readme.includes('(docs/standards/acceptance.md)'));
-  assert.match(fs.readFileSync(path.join(target, 'docs/standards/acceptance.md'), 'utf8'), /不默认保存完整源码/);
+  assert.match(fs.readFileSync(path.join(target, 'docs/standards/acceptance.md'), 'utf8'), /留下来的只有两类/);
   assert.ok(readme.includes('(docs/standards/README.md)'));
   assert.match(fs.readFileSync(path.join(target, 'docs/standards/ui.md'), 'utf8'), /无明确用途/);
   assert.equal(fs.existsSync(path.join(target, '.agents/skills')), false, 'standards must not install skills');

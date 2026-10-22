@@ -36,22 +36,22 @@
 | 同模块 IMPLEMENTATION.md（按需） | 实现、参数、制作、专用操作与当前复验 |
 | docs/engineering/、standards/、references/、release/、local/ | 共用工程、规范、参考、发行输入、本地材料 |
 
-PROJECT 和 System 区分两类内容：
+PROJECT 和模块设计区分两类内容：
 
 - **已确认设计：**你明确要求或认可的内容，注明来源与范围；改变含义前需要对齐。
 - **AI 当前方案：**AI 可以在授权范围内继续调整的设计细节；实现完成、测试通过或你未提出反对，都不等于确认。
 
 例如，你要求“主动躲避，不引入体力管理”。AI 可以提出闪避和翻滚、调校尚未确认的冷却，但不能自行加入体力消耗。下一轮开发先读取这些依据，设计变化再更新回正文。
 
-模块文档按需建立，设计与实现同目录；中文项目可使用“模块/模块名/设计.md、实现.md”。Plan 可选，不预建空实现或重复目录。具体分工见[文档组织](docs/standards/README.md#按模块组织项目文档)。
+模块文档有内容才建，设计与实现放在同一个目录（中文项目可使用“模块/模块名/设计.md、实现.md”）；Plan 可选。具体分工见[文档组织](docs/standards/README.md#按模块组织项目文档)。
 
 ## 以实际体验检查交付
 
 你要求参考图中的厚重云层，接入体积云只是实现进展。AI 还应对照画面，检查形态、层次和质感，说明未达目标的部分；只认可云的质感，也不意味着授权重做地形或整体色调。
 
-[完整虚构示例](docs/references/WORKED-EXAMPLE.md)用于说明规则，不是真实效果证据。[交付规则](AGENTS.md#交付收尾与证据一致性)涵盖可玩入口检查、受测版本和历史结果的区分。
+[完整虚构示例](docs/references/WORKED-EXAMPLE.md)用于说明规则，不是真实效果证据。[交付与收尾](AGENTS.md#交付与收尾)涵盖可玩入口检查，[验收规范](docs/standards/acceptance.md#交付)区分受测版本和历史结果。
 
-验收与清理统一按[轻量留存规范](docs/standards/acceptance.md)：日常简短交付，重要版本或模块通常留 3–5 张截图；同主题媒体默认只留最新有效一套，必要基线、对照与回退保留。检查按改动选择，不默认制作快照、副本或报告。
+验收、留存与清理统一按[验收规范](docs/standards/acceptance.md)：日常交付简短；一轮下来只留用户的材料和当轮计划定下要留的，留多少由计划写明，其余都是临时产物，收尾时列清单删。检查按改动选择，不默认制作快照、副本或报告。
 
 ## 可选：初始化空项目
 
@@ -65,7 +65,7 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 
 第一条 node 命令只预览；`--apply` 只接受不存在或为空的目标。路径相对终端当前目录，含空格时加引号，框架副本与游戏目录分开。非空项目由 AI 按接入指南合并；无 Node 可手动接入。
 
-工具生成文档骨架，不生成游戏代码或安装引擎。填写真实设计依据后才算完成接入；本仓库的 [PROJECT](docs/PROJECT.md) 描述框架自身，不能直接作为游戏的设计文档。
+工具按 `tools/templates/` 里的模板生成文档骨架，不生成游戏代码或安装引擎。填写真实设计依据后才算完成接入；本仓库的 [PROJECT](docs/PROJECT.md) 描述框架自身，不能直接作为游戏的设计文档。
 
 ## 文档入口
 
@@ -75,17 +75,17 @@ node ai-game-dev-framework/tools/adopt.mjs --target ../my-game --apply
 | --- | --- |
 | 工作规则与来源 | [AGENTS](AGENTS.md) · [框架方向](docs/PROJECT.md) |
 | 接入与升级 | [BOOTSTRAP](BOOTSTRAP.md) · [接入指南](docs/ADOPTION.md) |
-| 文档分工与模板 | [文档组织](docs/standards/README.md#按模块组织项目文档) · [模块设计/实现模板](docs/systems/README.md) |
-| 专项规范 | [UI](docs/standards/ui.md) · [验收与轻量留存](docs/standards/acceptance.md) |
+| 文档分工与模板 | [文档组织](docs/standards/README.md#按模块组织项目文档) · [模块设计/实现模板](docs/modules/README.md) |
+| 专项规范 | [UI](docs/standards/ui.md) · [验收、交付与留存](docs/standards/acceptance.md) |
 | 参考与案例 | [参考说明](docs/references/README.md) · [虚构示例](docs/references/WORKED-EXAMPLE.md) |
 | 可选过程记录 | [工作记录说明](docs/plans/README.md)，不承担当前设计 |
 | 版本与许可 | [版本](VERSION) · [变更记录](CHANGELOG.md) · [LICENSE](LICENSE) |
 
 ## 边界与维护
 
-框架提供可查的设计依据，不能保证所有 Agent 自动遵循。宿主未自动加载 AGENTS 时，需显式要求读取或从宿主规则入口引用；文档接入与规则加载分别检查。
+框架提供可查的设计依据，不能保证所有 Agent 自动遵循。宿主未自动加载 AGENTS 时，需显式要求读取或从宿主规则入口引用；文档接入与规则加载分别检查，见[接入指南](docs/ADOPTION.md#完成检查)。
 
-维护检查：`node tools/check.mjs`、`node --test tools/adopt.test.mjs`。这些检查验证文档链接与初始化行为，不证明真实游戏体验或长期设计一致性。
+维护检查：`node tools/check.mjs`（本地链接、标题锚点、中英文 README 的标题结构）、`node --test tools/adopt.test.mjs tools/check.test.mjs`。这些检查验证文档链接与初始化行为，不证明真实游戏体验或长期设计一致性。
 
 [版本](VERSION) · [变更与验证记录](CHANGELOG.md) · [MIT License](LICENSE)。升级按差异合并；第三方资料和游戏资产沿用各自许可。
 
